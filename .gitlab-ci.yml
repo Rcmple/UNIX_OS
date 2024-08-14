@@ -1,0 +1,26 @@
+image: aakarnov/clang
+
+stages:
+  - check 
+  - test
+
+analyze:
+  stage: check
+  when: manual
+  script:
+    - chmod u+x run_analyzer
+    - ./run_analyzer
+
+task1:
+  stage: test
+  when: manual
+  script:
+    - chmod u+x tests/run_task1_test
+    - ./tests/run_task1_test
+
+task2:
+  stage: test 
+  when: manual
+  script:
+    - chmod u+x tests/run_task2_test
+    - ./tests/run_task2_test

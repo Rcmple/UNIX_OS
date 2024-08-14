@@ -1,0 +1,7 @@
+# Run clang analyzer for every c file
+
+echo "--------------------"
+echo "Running clang-tidy"
+echo "--------------------"
+
+clang-tidy `find . -name '*.c'`

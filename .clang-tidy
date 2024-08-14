@@ -1,0 +1,7 @@
+Checks:          'bugprone-unused-return-value'
+WarningsAsErrors: '*'
+HeaderFilterRegex: '$PWD/.*'
+FormatStyle:     none
+CheckOptions:
+- key:             bugprone-unused-return-value.CheckedFunctions
+  value:           'getuid;getgid;getpid;getppid;fork;execl;execlp;execle;execv;execvp;execvpe'
