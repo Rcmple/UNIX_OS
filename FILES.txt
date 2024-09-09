@@ -1,2 +1,2 @@
-task1=''
-task2=''
+task1='first_task'
+task2='second_task'

@@ -12,3 +12,4 @@ int main(int argc, char** argv) {
         printf("Родитель:\n PID: %d\n PPID: %d %d\n", getpid(), getppid(), cur_proc);
     }
 }
+
