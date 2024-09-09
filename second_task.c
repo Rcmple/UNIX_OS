@@ -8,12 +8,12 @@ int main(int agrc, char **argv) {
     if(a >= 0) {
         double eps = 0.000001;
         double prev;
-        double cur = 1000;
+        double cur = 100;
         do {
             prev = cur;
             cur = 0.5 * (prev + a / prev);
         } while(fabs(cur - prev) >= eps);
-        printf("Корень из числа %lf : %lf\n", a, prev);
+        printf("%lf\n", cur);
     } else{
         printf("Вы вводите отрицательное число\n");
     }
