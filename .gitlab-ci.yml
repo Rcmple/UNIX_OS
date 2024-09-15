@@ -24,3 +24,12 @@ task2:
   script:
     - chmod u+x tests/run_task2_test
     - ./tests/run_task2_test
+
+task3:
+  stage: test
+  when: manual
+  script:
+    - chmod u+x tests/before_task3
+    - chmod u+x tests/run_task3_test
+    - ./tests/before_task3
+    - ./tests/run_task3_test

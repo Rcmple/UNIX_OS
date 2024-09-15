@@ -1,0 +1,23 @@
+# Run program3 with sanitizer and give input
+
+source FILES.txt
+
+echo "--------------------"
+echo "Compiling and testing $task3 with sanitizers"
+echo "--------------------"
+
+sanitizers=( '-fsanitize=leak -fsanitize=address'
+             '-fsanitize=memory -fsanitize-memory-track-origins=2' 
+             '-fsanitize=undefined'
+           )
+t3=${task3%.*}
+
+for sanitizer in "${sanitizers[@]}"
+do 
+  echo "--------------------"
+  echo "Starting tests with the following sanitizer enabled: $sanitizer"
+  echo "--------------------"
+  clang $task3 $sanitizer -o $t3 || { echo "Unable to compile; see log" ; exit 1 ; }
+  ./$t3 || { echo "Sanitizer failed; see log" ; exit 1 ; }
+  rm $t3
+done

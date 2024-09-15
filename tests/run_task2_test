@@ -12,12 +12,20 @@ sanitizers=( '-fsanitize=leak -fsanitize=address'
            )
 t2=${task2%.*}
 
+inputs=('0' '1' '2' '3' '0.04' '-16' '0.00000001')
+
 for sanitizer in "${sanitizers[@]}"
 do 
   echo "--------------------"
   echo "Starting tests with the following sanitizer enabled: $sanitizer"
   echo "--------------------"
   clang $task2 $sanitizer -o $t2 || { echo "Unable to compile; see log" ; exit 1 ; }
+  for input in "${inputs[@]}"
+  do
+    export $task2_env=$input
+    ./$t2 || { echo "Sanitizer failed; see log" ; exit 1 ; }
+  done
+  unset $task2_env
   ./$t2 || { echo "Sanitizer failed; see log" ; exit 1 ; }
   rm $t2
 done
