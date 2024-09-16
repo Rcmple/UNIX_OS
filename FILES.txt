@@ -1,4 +1,4 @@
-task1=''
-task2=''
-task2_env=''
-task3=''
+task1='1.c'
+task2='2.c'
+task2_env='NUM'
+task3='3.c'
