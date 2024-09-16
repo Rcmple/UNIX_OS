@@ -17,6 +17,7 @@ int main(int argc, char* argv[], char* envp[]) {
     }
     if(!flag) {
         printf("Вы не задали число из которого нужно извлекать корень\n");
+        return 0;
     }
     if(a >= 0) {
         double eps = 0.000001;
