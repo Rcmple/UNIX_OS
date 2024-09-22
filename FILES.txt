@@ -1,3 +1,5 @@
-task1_in='myfile'
-task1=''
-task2=''
+main=''
+parent=''
+parent_exe=''
+child=''
+child_exe=''

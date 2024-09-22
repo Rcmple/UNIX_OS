@@ -1,24 +1,27 @@
-# Run program1 with sanitizer and give input
+# Run program with sanitizer
 
 source FILES.txt
 
 echo "--------------------"
-echo "Compiling and testing $task1 with sanitizers"
+echo "Compiling and testing task1 with sanitizers"
 echo "--------------------"
 
 sanitizers=( '-fsanitize=leak -fsanitize=address'
              '-fsanitize=memory -fsanitize-memory-track-origins=2' 
              '-fsanitize=undefined'
            )
-t1=${task1%.*}
-cp tests/myfile $task1_in
+m=${main%.*}
 
 for sanitizer in "${sanitizers[@]}"
 do 
   echo "--------------------"
   echo "Starting tests with the following sanitizer enabled: $sanitizer"
   echo "--------------------"
-  clang $task1 $sanitizer -o $t1 || { echo "Unable to compile; see log" ; exit 1 ; }
-  ./$t1 || { echo "Sanitizer failed; see log" ; exit 1 ; }
-  rm $t1
+  clang $main $sanitizer -o $m || { echo "Unable to compile; see log" ; exit 1 ; }
+  clang $parent $sanitizer -o $parent_exe || { echo "Unable to compile; see log" ; exit 1 ; }
+  clang $child $sanitizer -o $child_exe || { echo "Unable to compile; see log" ; exit 1 ; }
+  ./$m || { echo "Sanitizer failed; see log" ; exit 1 ; }
+  rm $m
+  rm $parent_exe
+  rm $child_exe
 done
