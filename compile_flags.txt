@@ -2,3 +2,4 @@
 -pedantic
 -Wall
 -Werror
+

@@ -1,4 +1,4 @@
-# Run reader and writer with sanitizer in every order
+# Run task1 with sanitizer
 
 source FILES.txt
 
@@ -10,8 +10,7 @@ sanitizers=( '-fsanitize=leak -fsanitize=address'
              '-fsanitize=memory -fsanitize-memory-track-origins=2' 
              '-fsanitize=undefined'
            )
-t1r=${task1_reader%.*}
-t1w=${task1_writer%.*}
+t1=${task1%.*}
 
 for sanitizer in "${sanitizers[@]}"
 do 
@@ -19,23 +18,7 @@ do
   echo "Starting tests with the following sanitizer enabled: $sanitizer"
   echo "--------------------"
 
-  clang $task1_reader $sanitizer -o $t1r || { echo "Unable to compile; see log" ; exit 1 ; }
-  clang $task1_writer $sanitizer -o $t1w || { echo "Unable to compile; see log" ; exit 1 ; }
-
-  ./$t1r || { echo "Sanitizer failed; see log" ; exit 1 ; } &
-  ./$t1w || { echo "Sanitizer failed; see log" ; exit 1 ; }
-
-  rm $task1_artifact
-  ./$t1w || { echo "Sanitizer failed; see log" ; exit 1 ; } &
-  ./$t1r || { echo "Sanitizer failed; see log" ; exit 1 ; }
-
-  ./$t1r || { echo "Sanitizer failed; see log" ; exit 1 ; } &
-  ./$t1w || { echo "Sanitizer failed; see log" ; exit 1 ; }
-
-  ./$t1w || { echo "Sanitizer failed; see log" ; exit 1 ; } &
-  ./$t1r || { echo "Sanitizer failed; see log" ; exit 1 ; }
-
-  rm $t1r
-  rm $t1w
-  rm $task1_artifact
+  clang $task1 $sanitizer -o $t1 || { echo "Unable to compile; see log" ; exit 1 ; }
+  ./$t1 || { echo "Sanitizer failed; see log" ; exit 1 ; }
+  rm $t1
 done
