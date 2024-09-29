@@ -1,3 +1,2 @@
-task1_reader=''
 task1_writer=''
-task1_artifact=''
+task1_reader=''

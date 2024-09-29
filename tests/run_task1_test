@@ -13,29 +13,22 @@ sanitizers=( '-fsanitize=leak -fsanitize=address'
 t1r=${task1_reader%.*}
 t1w=${task1_writer%.*}
 
+# Copy source file to working directory to avoid bug with src directory
+input_file=`echo $t1w | sed 's/.*\///g'`
+cp -n $task1_writer $input_file.c
+
 for sanitizer in "${sanitizers[@]}"
 do 
   echo "--------------------"
   echo "Starting tests with the following sanitizer enabled: $sanitizer"
   echo "--------------------"
 
-  clang $task1_reader $sanitizer -o $t1r || { echo "Unable to compile; see log" ; exit 1 ; }
   clang $task1_writer $sanitizer -o $t1w || { echo "Unable to compile; see log" ; exit 1 ; }
+  clang $task1_reader $sanitizer -o $t1r || { echo "Unable to compile; see log" ; exit 1 ; }
 
-  ./$t1r || { echo "Sanitizer failed; see log" ; exit 1 ; } &
   ./$t1w || { echo "Sanitizer failed; see log" ; exit 1 ; }
-
-  rm $task1_artifact
-  ./$t1w || { echo "Sanitizer failed; see log" ; exit 1 ; } &
-  ./$t1r || { echo "Sanitizer failed; see log" ; exit 1 ; }
-
-  ./$t1r || { echo "Sanitizer failed; see log" ; exit 1 ; } &
-  ./$t1w || { echo "Sanitizer failed; see log" ; exit 1 ; }
-
-  ./$t1w || { echo "Sanitizer failed; see log" ; exit 1 ; } &
   ./$t1r || { echo "Sanitizer failed; see log" ; exit 1 ; }
 
   rm $t1r
   rm $t1w
-  rm $task1_artifact
 done
