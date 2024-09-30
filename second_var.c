@@ -1,7 +1,7 @@
 //
 // Created by rcmpl on 29.09.2024.
 //
-
+#define _GNU_SOURCE
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdio.h>
