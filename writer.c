@@ -23,7 +23,7 @@ int main() {
     key_t key;
 
     size_t sz = lseek(fd, 0, SEEK_END);
-    size_t sz2 = lseek(fd, SEEK_SET, 0);
+    (void)lseek(fd, SEEK_SET, 0);
     char* buf;
 
     if ((key = ftok(cur_file, 0)) < 0) {
@@ -48,7 +48,7 @@ int main() {
         exit(-1);
     }
 
-    ssize_t szz = read(fd, buf, sz + 1);
+    (void)read(fd, buf, sz + 1);
 
     if(close(fd) < 0) {
         printf("Can't close file\n");
