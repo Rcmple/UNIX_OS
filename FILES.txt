@@ -1,2 +1,2 @@
-task1_writer=''
-task1_reader=''
+task1_writer='writer.c'
+task1_reader='reader.c'
