@@ -10,7 +10,8 @@ sanitizers=( '-fsanitize=leak -fsanitize=address'
              '-fsanitize=memory -fsanitize-memory-track-origins=2' 
              '-fsanitize=undefined'
            )
-t1=${task1%.*}
+t1a=${task1a%.*}
+t1b=${task1b%.*}
 
 for sanitizer in "${sanitizers[@]}"
 do 
@@ -18,9 +19,16 @@ do
   echo "Starting tests with the following sanitizer enabled: $sanitizer"
   echo "--------------------"
 
-  clang $task1 $sanitizer -o $t1 || { echo "Unable to compile; see log" ; exit 1 ; }
+  clang $task1a $sanitizer -o $t1a || { echo "Unable to compile; see log" ; exit 1 ; }
+  clang $task1b $sanitizer -o $t1b || { echo "Unable to compile; see log" ; exit 1 ; }
 
-  ./$t1 || { echo "Sanitizer failed; see log" ; exit 1 ; }
+  ./$t1b || { echo "Sanitizer failed; see log" ; exit 1 ; }
+  ./$t1b || { echo "Sanitizer failed; see log" ; exit 1 ; }
+  ./$t1b || { echo "Sanitizer failed; see log" ; exit 1 ; }
+  ./$t1b || { echo "Sanitizer failed; see log" ; exit 1 ; }
+  ./$t1b || { echo "Sanitizer failed; see log" ; exit 1 ; }
+  ./$t1a || { echo "Sanitizer failed; see log" ; exit 1 ; }
 
-  rm $t1
+  rm $t1a
+  rm $t1b
 done

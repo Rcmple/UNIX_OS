@@ -4,4 +4,4 @@ HeaderFilterRegex: '$PWD/.*'
 FormatStyle:     none
 CheckOptions:
 - key:             bugprone-unused-return-value.CheckedFunctions
-  value:           'getuid;getgid;getpid;getppid;fork;open;read;write;close;lseek;pipe;mknod;mkfifo;shmget;shmat;shmdt;shmctl;pthread_create'
+  value:           'getuid;getgid;getpid;getppid;fork;open;read;write;close;lseek;pipe;mknod;mkfifo;shmget;shmat;shmdt;shmctl;pthread_create;semget;semop'

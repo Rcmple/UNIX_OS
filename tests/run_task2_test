@@ -22,7 +22,7 @@ do
   clang $task2a $sanitizer -o $t2a || { echo "Unable to compile; see log" ; exit 1 ; }
   clang $task2b $sanitizer -o $t2b || { echo "Unable to compile; see log" ; exit 1 ; }
 
-  ./$t2a || { echo "Sanitizer failed; see log" ; exit 1 ; }
+  ./$t2b || { echo "Sanitizer failed; see log" ; exit 1 ; }
   (./$t2a || { echo "Sanitizer failed; see log" ; exit 1 ; }) &
   (./$t2b || { echo "Sanitizer failed; see log" ; exit 1 ; })
   wait
