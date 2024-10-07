@@ -45,15 +45,14 @@ int main()
         exit(-1);
     }
 
-    mybuf.sem_num = 0;
-    mybuf.sem_op = 1;
-    mybuf.sem_flg = 0;
-    if(semop(semid, &mybuf, 1) < 0) {
-        printf("Can't add 1 to semaphore\n");
-        exit(-1);
-    }
-
     if (new) {
+        mybuf.sem_num = 0;
+        mybuf.sem_op = 1;
+        mybuf.sem_flg = 0;
+        if(semop(semid, &mybuf, 1) < 0) {
+            printf("Can't add 1 to semaphore\n");
+            exit(-1);
+        }
         array[0] =  0;
         array[1] =  1;
         array[2] =  1;
