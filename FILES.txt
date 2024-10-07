@@ -1,4 +1,4 @@
-task1a=''
-task1b=''
-task2a=''
-task2b=''
+task1a='1-a.c'
+task1b='1-b.c'
+task2a='2-a.c'
+task2b='2-b.c'
