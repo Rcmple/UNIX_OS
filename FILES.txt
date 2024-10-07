@@ -1,3 +1,3 @@
-task1=''
-task2a=''
-task2b=''
+task1='0.c'
+task2a='1.c'
+task2b='2.c'
