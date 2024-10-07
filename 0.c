@@ -25,7 +25,7 @@ void *mythread(void *dummy)
     mythid = pthread_self();
 
     a = a+1;
-    printf("Thread %u, Calculation result = %d\n", mythid, a);
+    printf("Thread %lu, Calculation result = %d\n", mythid, a);
     return NULL;
 }
 
@@ -53,13 +53,13 @@ int main()
         printf ("Error on thread create, return value = %d\n", result2);
         exit(-1);
     }
-    printf("1st Thread created, thid = %u\n", thid);
-    printf("2nd Thread created, thid = %u\n", thid2);
+    printf("1st Thread created, thid = %lu\n", thid);
+    printf("2nd Thread created, thid = %lu\n", thid2);
     mythid = pthread_self();
 
     a = a+1;
 
-    printf("Thread %u, Calculation result = %d\n", mythid, a);
+    printf("Thread %lu, Calculation result = %d\n", mythid, a);
     //
     // Wait for the spawned thread to terminate, not caring what value it returns.
     // If this function is not called, the main() function may end before
