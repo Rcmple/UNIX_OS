@@ -10,8 +10,9 @@ sanitizers=( '-fsanitize=leak -fsanitize=address'
              '-fsanitize=memory -fsanitize-memory-track-origins=2' 
              '-fsanitize=undefined'
            )
-t1a=${task1a%.*}
-t1b=${task1b%.*}
+t1=${task1%.*}
+
+inputs=('0' '1' '2' '4' '8')
 
 for sanitizer in "${sanitizers[@]}"
 do 
@@ -19,16 +20,14 @@ do
   echo "Starting tests with the following sanitizer enabled: $sanitizer"
   echo "--------------------"
 
-  clang $task1a $sanitizer -o $t1a || { echo "Unable to compile; see log" ; exit 1 ; }
-  clang $task1b $sanitizer -o $t1b || { echo "Unable to compile; see log" ; exit 1 ; }
+  clang $task1 $sanitizer -o $t1 || { echo "Unable to compile; see log" ; exit 1 ; }
 
-  ./$t1b || { echo "Sanitizer failed; see log" ; exit 1 ; }
-  ./$t1b || { echo "Sanitizer failed; see log" ; exit 1 ; }
-  ./$t1b || { echo "Sanitizer failed; see log" ; exit 1 ; }
-  ./$t1b || { echo "Sanitizer failed; see log" ; exit 1 ; }
-  ./$t1b || { echo "Sanitizer failed; see log" ; exit 1 ; }
-  ./$t1a || { echo "Sanitizer failed; see log" ; exit 1 ; }
+  for input in "${inputs[@]}"
+  do
+    echo "Running with input number $input..."
+    (./$t1 <<< $input) || { echo "Sanitizer failed; see log" ; exit 1 ; }
+    wait
+  done
 
-  rm $t1a
-  rm $t1b
+  rm $t1
 done
